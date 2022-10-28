@@ -36,7 +36,66 @@ namespace Backend.Controllers
             return clientes;
         }
 
+
+
+
+        [HttpGet]
+        [Route("listarId")]
+        public dynamic listarClienteId(int codigo)
+        {
+            return new Cliente
+            {
+                id = codigo.ToString(),
+                nombre = "Camilo Poblete",
+                descripcion = "Cliente con tarea  no resuelta"
+            };
+
+        }
+
+
+
+
+        [HttpPost]
+        [Route("guardar")]
+
+        public dynamic guardarCliente(Cliente cliente)
+        {
+            cliente.id = "3";
+
+            return new
+            {
+                sucess = true,
+                message = "cliente registrado",
+                result = cliente
+
+            };
+        }
+
+
+
+        [HttpPost]
+        [Route("eliminar")]
+        public dynamic eliminarCliente(Cliente cliente)
+        {
+            string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
+          
+
+            if (token != "camilo.")
+            {
+                return new
+                {
+                    success = false,
+                    message = "token incorrecto",
+                    result = ""
+                };
+            }
+
+            return new
+            {
+                success = true,
+                message = "cliente eliminado",
+                result = cliente
+            };
+        }
     }
-
 }
-
