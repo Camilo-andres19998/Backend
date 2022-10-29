@@ -1,39 +1,47 @@
 ﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Backend.Controllers
 {
 
     [ApiController]
-    [Route("cliente")]
-    public class ClienteController : ControllerBase
+    [Route("tarea")]
+    public class TareasController : ControllerBase
     {
 
 
         [HttpGet]
         [Route("listar")]
-        public dynamic listarCliente()
+        public dynamic listarTareas()
         {
-            List<Cliente> clientes = new List<Cliente>
+           
+            List<Tareas> tareas = new List<Tareas>
 
             {
-                new Cliente
+              
+                new Tareas
                 {
                     id = "1",
                     nombre = "Camilo",
-                    descripcion = "Cliente con tarea resuelta"
+                    nombre_tarea = "Matematica",
+                    descripcion = "Usuario con tarea resuelta",
+                    estado = "Resuelta"
+                   
                 },
 
-                new Cliente
+                new Tareas
                 {
                     id = "2",
                     nombre = "Benjamin",
-                    descripcion = "Cliente con tarea resuelta"
+                    nombre_tarea = "Historia",
+                    descripcion = "Usuario con tarea no resuelta",
+                     estado = "No resuelta"
                 }
 
                 };
 
-            return clientes;
+            return tareas;
         }
 
 
@@ -41,13 +49,13 @@ namespace Backend.Controllers
 
         [HttpGet]
         [Route("listarId")]
-        public dynamic listarClienteId(int codigo)
+        public dynamic listarTareasId(int codigo)
         {
-            return new Cliente
+            return new Tareas
             {
                 id = codigo.ToString(),
-                nombre = "Camilo Poblete",
-                descripcion = "Cliente con tarea  no resuelta"
+                nombre = "Ciencias",
+                descripcion = "Usuario con tarea  no resuelta"
             };
 
         }
@@ -58,15 +66,15 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("guardar")]
 
-        public dynamic guardarCliente(Cliente cliente)
+        public dynamic guardarTareas(Tareas tarea)
         {
-            cliente.id = "3";
+            tarea.id = "3";
 
             return new
             {
                 sucess = true,
-                message = "cliente registrado",
-                result = cliente
+                message = "Tarea  registrada correctamente",
+                result = tarea
 
             };
         }
@@ -75,12 +83,12 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("eliminar")]
-        public dynamic eliminarCliente(Cliente cliente)
+        public dynamic eliminarTarea(Tareas tarea)
         {
             string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
           
 
-            if (token != "camilo.")
+            if (token != "Camilo.")
             {
                 return new
                 {
@@ -93,8 +101,8 @@ namespace Backend.Controllers
             return new
             {
                 success = true,
-                message = "cliente eliminado",
-                result = cliente
+                message = "tarea eliminada",
+                result = tarea
             };
         }
     }

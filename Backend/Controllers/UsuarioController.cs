@@ -1,5 +1,5 @@
 ﻿using Backend.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -30,7 +30,7 @@ namespace Backend.Controllers
             string passwod = data.password.ToString();
 
 
-            Usuario usuario = Usuario.DB().Where(x => x.usuario == user && x.passrowd == passwod).FirstOrDefault();
+            Usuario usuario = Usuario.DB().Where(x => x.username == user && x.passrowd == passwod).FirstOrDefault();
 
             if(usuario == null)
             {
@@ -50,7 +50,7 @@ namespace Backend.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("id",usuario.idUsuario),
-                new Claim("usuario",usuario.usuario)
+                new Claim("usuario",usuario.username)
 
 
 
@@ -84,10 +84,30 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("eliminar")]
+        [Authorize]
 
-        public dynamic eliminarCliente(Cliente cliente)
+        public dynamic eliminarCliente(Tareas cliente)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            var rToken = Jwt.validarToken(identity);
+
+            if (!rToken.success) return rToken;
+
+            Usuario usuario = rToken.result;
+
+
+            if(usuario.rol != "administrador")
+            {
+
+                return new
+                {
+                    success = false,
+                    message = "No tiene permisos de administrador para eliminar clientes",
+                    result = cliente
+                };
+            }
+
 
             return new
             {

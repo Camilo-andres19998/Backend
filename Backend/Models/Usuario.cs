@@ -3,9 +3,14 @@
     public class Usuario
     {
         public string idUsuario { get; set; }
-        public string usuario { get; set; }
+        public string username { get; set; }
+
+        public string nombre { get; set; }
 
         public string passrowd { get; set; }
+
+
+       // public Tareas tarea { get; set; }
 
         public string rol { get; set; }
 
@@ -16,7 +21,8 @@
                 new Usuario
                 {
                     idUsuario = "1",
-                    usuario = "Camilo",
+                    username = "Camilo0098",
+                    nombre = "Camilo",
                     passrowd = "123.",
                     rol = "empleado"
                 },
@@ -24,7 +30,8 @@
                  new Usuario
                 {
                     idUsuario = "1",
-                    usuario = "Daniel",
+                    username = "Daniel-98",
+                     nombre = "Daniel",
                     passrowd = "123.",
                     rol = "empleado"
                 },
@@ -32,7 +39,8 @@
                    new Usuario
                 {
                     idUsuario = "2",
-                    usuario = "Benjamin",
+                    username = "Benjamin-98",
+                    nombre = "Benjamin",
                     passrowd = "123.",
                     rol = "asesor"
                 },
@@ -40,10 +48,11 @@
 
                      new Usuario
                 {
-                    idUsuario = "3",
-                    usuario = "Alejandro",
-                    passrowd = "123.",
-                    rol = "administrador"
+                     idUsuario = "3",
+                     username = "Alejandro-98",
+                     nombre = "Alejandro",
+                     passrowd = "123.",
+                     rol = "administrador"
                 },
 
 
