@@ -11,6 +11,8 @@ namespace Backend.Models
         public string Subject { get; set; }
 
 
+
+       
         public static dynamic validarToken(ClaimsIdentity identity)
         {
             try

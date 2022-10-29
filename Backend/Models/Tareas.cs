@@ -1,6 +1,6 @@
 ﻿namespace Backend.Models
 {
-    public class Tareas : Usuario
+    public class Tareas : UserDTO
     {
         public string id { get; set; }
         public string nombre_tarea { get; set; }
@@ -11,6 +11,6 @@
         public DateTime fecha_creacion { get; set; }
         public DateTime fecha_actualizacion { get; set; }
 
-
+       
     }
 }
