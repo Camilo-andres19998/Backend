@@ -14,6 +14,8 @@
 
         public string rol { get; set; }
 
+
+        
         public static List<Usuario> DB()
         {
             var list = new List<Usuario>()
@@ -29,19 +31,19 @@
 
                  new Usuario
                 {
-                    idUsuario = "1",
-                    username = "Daniel-98",
-                     nombre = "Daniel",
-                    passrowd = "123.",
-                    rol = "empleado"
+                   idUsuario = "2",
+                    username = "Benjamin-98",
+                    nombre = "Benjamin",
+                    passrowd = "1234.",
+                    rol = "asesor"
                 },
 
                    new Usuario
                 {
                     idUsuario = "2",
-                    username = "Benjamin-98",
-                    nombre = "Benjamin",
-                    passrowd = "123.",
+                    username = "Daniel-98",
+                    nombre = "Daniel",
+                    passrowd = "12345.",
                     rol = "asesor"
                 },
 
@@ -51,7 +53,7 @@
                      idUsuario = "3",
                      username = "Alejandro-98",
                      nombre = "Alejandro",
-                     passrowd = "123.",
+                     passrowd = "234.",
                      rol = "administrador"
                 },
 

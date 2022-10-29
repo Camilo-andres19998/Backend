@@ -24,9 +24,11 @@ namespace Backend.Controllers
                 {
                     id = "1",
                     nombre = "Camilo",
-                    nombre_tarea = "Matematica",
+                    nombre_tarea = "Matematica.",
                     descripcion = "Usuario con tarea resuelta",
-                    estado = "Resuelta"
+                    estado = "Resuelta",
+                    fecha_creacion =   DateTime.Today,
+                    fecha_actualizacion = DateTime.Now,
                    
                 },
 
@@ -36,7 +38,10 @@ namespace Backend.Controllers
                     nombre = "Benjamin",
                     nombre_tarea = "Historia",
                     descripcion = "Usuario con tarea no resuelta",
-                     estado = "No resuelta"
+                    estado = "No resuelta",
+                    fecha_creacion =   DateTime.Today,
+                    fecha_actualizacion = DateTime.Now,
+
                 }
 
                 };
@@ -54,7 +59,7 @@ namespace Backend.Controllers
             return new Tareas
             {
                 id = codigo.ToString(),
-                nombre = "Ciencias",
+                nombre_tarea = "Ciencias",
                 descripcion = "Usuario con tarea  no resuelta"
             };
 
@@ -88,7 +93,7 @@ namespace Backend.Controllers
             string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
           
 
-            if (token != "Camilo.")
+            if (token != "Matematica.")
             {
                 return new
                 {

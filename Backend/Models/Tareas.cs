@@ -7,7 +7,10 @@
         public string descripcion { get; set; }
 
         public string estado { get; set; }
-       
-       
+
+        public DateTime fecha_creacion { get; set; }
+        public DateTime fecha_actualizacion { get; set; }
+
+
     }
 }

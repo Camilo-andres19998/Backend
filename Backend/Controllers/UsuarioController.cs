@@ -12,27 +12,27 @@ namespace Backend.Controllers
     [ApiController]
     [Route("usuario")]
     public class UsuarioController : ControllerBase
-    { 
+    {
         public IConfiguration _configuration;
 
-  
-    public UsuarioController(IConfiguration configuration)
-    {
-      _configuration = configuration;
-    }
+
+        public UsuarioController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         [HttpPost]
         [Route("login")]
         public dynamic Iniciarsesion([FromBody] Object optdata)
         {
             var data = JsonConvert.DeserializeObject<dynamic>(optdata.ToString());
 
-            string user = data.usuario.ToString();
+            string user = data.username.ToString();
             string passwod = data.password.ToString();
 
 
             Usuario usuario = Usuario.DB().Where(x => x.username == user && x.passrowd == passwod).FirstOrDefault();
 
-            if(usuario == null)
+            if (usuario == null)
             {
                 return new
                 {
@@ -50,7 +50,7 @@ namespace Backend.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("id",usuario.idUsuario),
-                new Claim("usuario",usuario.username)
+                new Claim("username",usuario.username)
 
 
 
@@ -58,7 +58,7 @@ namespace Backend.Controllers
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
-            var singIn = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
+            var singIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 jwt.Issuer,
@@ -86,7 +86,7 @@ namespace Backend.Controllers
         [Route("eliminar")]
         [Authorize]
 
-        public dynamic eliminarCliente(Tareas cliente)
+        public dynamic eliminarTarea(Tareas tarea)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
 
@@ -97,14 +97,14 @@ namespace Backend.Controllers
             Usuario usuario = rToken.result;
 
 
-            if(usuario.rol != "administrador")
+            if (usuario.rol != "administrador")
             {
 
                 return new
                 {
                     success = false,
-                    message = "No tiene permisos de administrador para eliminar clientes",
-                    result = cliente
+                    message = "No tiene permisos de administrador para eliminar tarea",
+                    result = tarea
                 };
             }
 
@@ -112,11 +112,49 @@ namespace Backend.Controllers
             return new
             {
                 success = true,
-                message = "cliente eliminado",
-                result = cliente
+                message = "tarea eliminado",
+                result = tarea
             };
 
         }
+
+
+    
+
+        [HttpGet]
+        [Route("listarUsuarios")]
+        public dynamic listarUsuarios()
+        {
+
+            List<Usuario> tareas = new List<Usuario>
+
+            {
+
+                new Usuario
+                {
+                   
+                    nombre = "Camilo",
+                     username = "Camilo0098",
+                    passrowd = "123.",
+                    
+
+                },
+
+                new Usuario
+                {
+                    nombre = "Benjamin",
+                    username = "Benjamin-98",
+                    passrowd = "1234.",
+                     
+                }
+
+                };
+
+            return tareas;
+        }
+
+
+
     }
 
 
