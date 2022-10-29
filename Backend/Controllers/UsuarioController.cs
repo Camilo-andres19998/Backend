@@ -16,6 +16,10 @@ namespace Backend.Controllers
         public IConfiguration _configuration;
 
 
+
+
+
+        /*
         public UsuarioController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -30,9 +34,9 @@ namespace Backend.Controllers
             string passwod = data.password.ToString();
 
 
-            Usuario usuario = Usuario.DB().Where(x => x.username == user && x.passrowd == passwod).FirstOrDefault();
+           // UserDTO usuario = UserDTO.DB().Where(x => x.username == user && x. == passwod).FirstOrDefault();
 
-            if (usuario == null)
+            if ( usuario == null)
             {
                 return new
                 {
@@ -41,7 +45,7 @@ namespace Backend.Controllers
                     result = ""
                 };
             }
-
+           
             var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
 
             var claims = new[]
@@ -82,6 +86,9 @@ namespace Backend.Controllers
 
         }
 
+        */
+
+
         [HttpPost]
         [Route("eliminar")]
         [Authorize]
@@ -119,7 +126,7 @@ namespace Backend.Controllers
         }
 
 
-    
+
 
         [HttpGet]
         [Route("listarUsuarios")]
@@ -132,20 +139,20 @@ namespace Backend.Controllers
 
                 new Usuario
                 {
-                   
-                    nombre = "Camilo",
-                     username = "Camilo0098",
-                    passrowd = "123.",
-                    
+
+                    //nombre = "Camilo",
+                    //usu = "Camilo0098",
+                    //passrowd = "123.",
+
 
                 },
 
                 new Usuario
                 {
-                    nombre = "Benjamin",
-                    username = "Benjamin-98",
-                    passrowd = "1234.",
-                     
+                    //nombre = "Benjamin",
+                    //usuario = "Benjamin-98",
+                   // passrowd = "1234.",
+
                 }
 
                 };
@@ -159,3 +166,4 @@ namespace Backend.Controllers
 
 
 }
+
