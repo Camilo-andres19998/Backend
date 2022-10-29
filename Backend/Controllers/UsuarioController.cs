@@ -81,6 +81,22 @@ namespace Backend.Controllers
             };
 
         }
+
+        [HttpPost]
+        [Route("eliminar")]
+
+        public dynamic eliminarCliente(Cliente cliente)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            return new
+            {
+                success = true,
+                message = "cliente eliminado",
+                result = cliente
+            };
+
+        }
     }
 
 
