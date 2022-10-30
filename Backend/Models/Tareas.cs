@@ -4,7 +4,13 @@ namespace Backend.Models
 {
     public class Tareas
     {
-        public string id { get; set; }
+        public Tareas()
+        {
+        }
+
+
+
+        public int id { get; set; }
         public string nombre_tarea { get; set; }
         public string descripcion { get; set; }
 

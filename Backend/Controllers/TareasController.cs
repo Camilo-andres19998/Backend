@@ -1,6 +1,16 @@
 ﻿using Backend.Models;
+using Backend.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Backend.Controllers
 {
@@ -9,6 +19,9 @@ namespace Backend.Controllers
     [Route("tarea")]
     public class TareasController : ControllerBase
     {
+        private readonly ITareasServices _tareasService;
+
+        public IConfiguration _configuration;
 
 
         [HttpGet]
@@ -21,10 +34,10 @@ namespace Backend.Controllers
 
                     new()
                     {
-
+                        id= 1,
                         nombre_tarea ="Matematica",
                         estado ="Resuelta",
-                        
+
                         usuario = new Usuario()
                         {
                             nombre ="Camilo",
@@ -36,11 +49,11 @@ namespace Backend.Controllers
 
                       new()
                       {
-
+                        id = 2,
                         nombre_tarea ="Ciencias",
                         estado ="No Resuelta",
                         usuario = new Usuario()
-                      {
+                        {
                            nombre ="Benjamin",
                            username ="benjamin-98"
                         }
@@ -67,7 +80,7 @@ namespace Backend.Controllers
         {
             return new Tareas
             {
-                id = codigo.ToString(),
+                id = 3,
                 nombre_tarea = "Ciencias",
                 descripcion = "Usuario con tarea  no resuelta"
             };
@@ -82,7 +95,7 @@ namespace Backend.Controllers
 
         public dynamic guardarTareas(Tareas tarea)
         {
-            tarea.id = "3";
+            tarea.id = 3;
 
             return new
             {
@@ -100,7 +113,7 @@ namespace Backend.Controllers
         public dynamic eliminarTarea(Tareas tarea)
         {
             string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
-          
+
 
             if (token != "Matematica.")
             {
@@ -119,5 +132,21 @@ namespace Backend.Controllers
                 result = tarea
             };
         }
+
+
+
+      
+
+        }
     }
-}
+
+
+
+    
+
+
+
+
+
+
+

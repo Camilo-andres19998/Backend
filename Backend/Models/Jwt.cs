@@ -1,5 +1,4 @@
-﻿using Backend.Models;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace Backend.Models
 {
@@ -13,12 +12,12 @@ namespace Backend.Models
 
 
 
-       
+
         public static dynamic validarToken(ClaimsIdentity identity)
         {
             try
             {
-                if(identity.Claims.Count() == 0)
+                if (identity.Claims.Count() == 0)
                 {
                     return new
                     {

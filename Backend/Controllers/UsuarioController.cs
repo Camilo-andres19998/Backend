@@ -38,54 +38,43 @@ namespace Backend.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-       
-      
+
 
         [HttpPost]
         [Route("eliminar")]
-        [Authorize]
-
         public dynamic eliminarTarea(Tareas tarea)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var rToken = Jwt.validarToken(identity);
-
-            if (!rToken.success) return rToken;
-
-            Usuario usuario = rToken.result;
+            string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
 
 
-            if (usuario.rol != "administrador")
+            if (token != "Alejandro")
             {
-
                 return new
                 {
                     success = false,
-                    message = "No tiene permisos de administrador para eliminar tarea",
-                    result = tarea
+                    message = "token incorrecto",
+                    result = ""
                 };
             }
-
 
             return new
             {
                 success = true,
-                message = "tarea eliminado",
+                message = "tarea eliminada",
                 result = tarea
             };
-
         }
-
-
     
 
-        [HttpGet]
+
+
+
+[HttpGet]
         [Route("listarUsuarios")]
         public dynamic listarUsuarios()
         {
 
-            List<Usuario> tareas = new List<Usuario>()
+            List<Usuario> usuarios = new List<Usuario>()
             {
 
                     new()
@@ -119,7 +108,7 @@ namespace Backend.Controllers
 
 
 
-            return tareas;
+            return usuarios;
         }
 
 

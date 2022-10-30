@@ -7,6 +7,8 @@
 
         public string nombre { get; set; }
 
+        public string passwd { get; set; }
+
         public string RefreshToken { get; set; } = string.Empty;
 
         public byte[] PassrowdHash { get; set; } 
@@ -34,7 +36,7 @@
                     idUsuario = "1",
                     username = "Camilo0098",
                     nombre = "Camilo",
-                   // passrowdHash = "123.",
+                   
                     rol = "empleado"
                 },
 
@@ -43,7 +45,7 @@
                    idUsuario = "2",
                     username = "Benjamin-98",
                     nombre = "Benjamin",
-                   // passrowdHash = "1234.",
+                   
                     rol = "asesor"
                 },
 
@@ -52,7 +54,7 @@
                     idUsuario ="3",
                     username = "Daniel-98",
                     nombre = "Daniel",
-                   // passrowdHash = "12345.",
+                
                     rol = "asesor"
                 },
 
@@ -62,7 +64,7 @@
                      idUsuario = "4",
                      username = "Alejandro-98",
                      nombre = "Alejandro",
-                    // passrowdHash = "234.",
+                   
                      rol = "administrador"
                 },
 
