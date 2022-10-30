@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 using Backend.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace TestUsuarios
 {
@@ -26,7 +27,7 @@ namespace TestUsuarios
         [Fact]
         public async Task ObtenerAcceso()
         {
-            var mockUsersService = new Mock<IUsersService>();
+            var mockUsersService = new Mock<IUsuariosService>();
             mockUsersService
                 .Setup(service => service.GetUsuarios())
                  .ReturnsAsync(new List<Usuario>()
@@ -47,7 +48,7 @@ namespace TestUsuarios
 
 
 
-            var sut = new ObtenerController(mockUsersService.Object);
+            var sut = new ObtenerUsuariosController(mockUsersService.Object);
 
             var result = (OkObjectResult)await sut.Get();
 
@@ -63,13 +64,13 @@ namespace TestUsuarios
         [Fact]
         public async Task ObtenerInvokesUsuariosServices()
         {
-            var mockUsersService = new Mock<IUsersService>();
+            var mockUsersService = new Mock<IUsuariosService>();
 
             mockUsersService
                 .Setup(service => service.GetUsuarios())
                 .ReturnsAsync(new List<Usuario>());
 
-            var sut = new ObtenerController(mockUsersService.Object);
+            var sut = new ObtenerUsuariosController(mockUsersService.Object);
 
             var result = await sut.Get();
 
@@ -85,7 +86,7 @@ namespace TestUsuarios
         [Fact]
         public async Task ObtenerListaUsuarios()
         {
-            var mockUsersService = new Mock<IUsersService>();
+            var mockUsersService = new Mock<IUsuariosService>();
 
             mockUsersService
                 .Setup(service => service.GetUsuarios())
@@ -96,6 +97,7 @@ namespace TestUsuarios
 
                         nombre ="Camilo",
                         username="camilo98",
+                      
                         UserDTO = new UserDTO()
                         {
                             Passwd ="123",
@@ -103,10 +105,10 @@ namespace TestUsuarios
 
 
                     }
-                });
+                }) ;
 
 
-            var sut = new ObtenerController(mockUsersService.Object);
+            var sut = new ObtenerUsuariosController(mockUsersService.Object);
 
             var result = await sut.Get();
 
@@ -120,13 +122,13 @@ namespace TestUsuarios
         [Fact]
         public async Task UsuarioNoEncontrados404()
         {
-            var mockUsersService = new Mock<IUsersService>();
+            var mockUsersService = new Mock<IUsuariosService>();
 
             mockUsersService
                 .Setup(service => service.GetUsuarios())
                 .ReturnsAsync(new List<Usuario>());
 
-            var sut = new ObtenerController(mockUsersService.Object);
+            var sut = new ObtenerUsuariosController(mockUsersService.Object);
 
             var result = await sut.Get();
 

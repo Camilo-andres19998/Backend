@@ -13,8 +13,8 @@ namespace Backend.Models
         public Usuario usuario { get; set; }
 
 
-        public DateTime fecha_creacion { get; set; }
-        public DateTime fecha_actualizacion { get; set; }
+        public DateTime fecha_creacion { get; set; } = DateTime.Today;
+        public DateTime fecha_actualizacion { get; set; } = DateTime.Now;
 
 
     }

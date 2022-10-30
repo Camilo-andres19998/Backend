@@ -5,14 +5,14 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ObtenerController : ControllerBase
+    public class ObtenerUsuariosController : ControllerBase
     {
-        private readonly IUsersService _usersService;
+        private readonly IUsuariosService _usersService;
 
 
 
 
-        public ObtenerController(IUsersService usersService)
+        public ObtenerUsuariosController(IUsuariosService usersService)
         {
             _usersService = usersService;
         }

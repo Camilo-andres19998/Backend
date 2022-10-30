@@ -25,12 +25,12 @@ namespace Backend.Controllers
 
 
 
-        [HttpPost("register")]
+        [HttpPost("RegistroUsuario")]
         public async Task<ActionResult<Usuario>> Registro(UserDTO request)
         {
-            CreatePasswordHash(request.Passwd, out byte[] passwordHash, out byte[] passwordSalt);
+            CrearContraseniaHash(request.Passwd, out byte[] passwordHash, out byte[] passwordSalt);
 
-            //usuario.nombre = request.Nombre;
+            usuario.nombre = request.Nombre;
 
             usuario.username = request.Usuario;
             usuario.PassrowdHash = passwordHash;
@@ -40,13 +40,8 @@ namespace Backend.Controllers
         }
 
 
-     
        
-
-      
-
-       
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private void CrearContraseniaHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
@@ -71,7 +66,7 @@ namespace Backend.Controllers
         }
 
 
-        [HttpPost("login")]
+        [HttpPost("IniciarSesion")]
         public async Task<ActionResult<string>> Login(UserDTO request)
         {
             if (usuario.username != request.Usuario)
@@ -86,8 +81,8 @@ namespace Backend.Controllers
 
             string token = CrearToken(usuario);
 
-           // var refreshToken = GenerateRefreshToken();
-            //SetRefreshToken(refreshToken);
+             var refreshToken =  GenerarToken();
+             EstablecerToken(refreshToken);
 
             return Ok(token);
         }
@@ -116,5 +111,40 @@ namespace Backend.Controllers
             return jwt;
         }
 
+
+        private void EstablecerToken(RefreshToken newRefreshToken)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            usuario.RefreshToken = newRefreshToken.Token;
+            usuario.TokenCreated = newRefreshToken.Created;
+            usuario.TokenExpires = newRefreshToken.Expires;
+        }
+
+
+
+        private RefreshToken GenerarToken()
+        {
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.Now.AddDays(7),
+                Created = DateTime.Now
+                
+            };
+
+            return refreshToken;
+        }
+
+
+        }
+
     }
-    }
+
+
+    

@@ -49,7 +49,7 @@
 
                    new Usuario
                 {
-                    idUsuario = "2",
+                    idUsuario ="3",
                     username = "Daniel-98",
                     nombre = "Daniel",
                    // passrowdHash = "12345.",
@@ -59,7 +59,7 @@
 
                      new Usuario
                 {
-                     idUsuario = "3",
+                     idUsuario = "4",
                      username = "Alejandro-98",
                      nombre = "Alejandro",
                     // passrowdHash = "234.",

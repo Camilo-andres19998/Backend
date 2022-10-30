@@ -2630,9 +2630,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\56946\\Desktop\\Backend\\TestUsuarios\\TestUsuarios.csproj",
-      "projectName": "TestUsuarios",
-      "projectPath": "C:\\Users\\56946\\Desktop\\Backend\\TestUsuarios\\TestUsuarios.csproj",
+      "projectUniqueName": "C:\\Users\\56946\\Desktop\\Backend\\TestUsuarios\\TestUnit.csproj",
+      "projectName": "TestUnit",
+      "projectPath": "C:\\Users\\56946\\Desktop\\Backend\\TestUsuarios\\TestUnit.csproj",
       "packagesPath": "C:\\Users\\56946\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\56946\\Desktop\\Backend\\TestUsuarios\\obj\\",
       "projectStyle": "PackageReference",

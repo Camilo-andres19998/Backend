@@ -51,5 +51,6 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddTransient<IUsersService, UsuariosServices>();
+    services.AddTransient<IUsuariosService, UsuariosServices>();
+    services.AddTransient<ITareasServices, TareasServices>();
 }
