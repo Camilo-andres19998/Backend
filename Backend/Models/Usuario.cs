@@ -1,18 +1,20 @@
 ﻿namespace Backend.Models
 {
-    public class Usuario:UserDTO
+    public class Usuario
     {
         public string idUsuario { get; set; }
         public string username { get; set; } = string.Empty;
 
         public string nombre { get; set; }
 
-        public byte[] passrowdHash { get; set; }
-
-
-        public byte[] passrowdSalt { get; set; }
-
         public string RefreshToken { get; set; } = string.Empty;
+
+        public byte[] passrowdHash { get; set; } 
+
+        public UserDTO UserDTO { get; set; }
+
+
+        public byte[] passrowdSalt { get; set; } 
 
         // public Tareas tarea { get; set; }
 
@@ -32,7 +34,7 @@
                     idUsuario = "1",
                     username = "Camilo0098",
                     nombre = "Camilo",
-                    Password ="123",
+                   // passrowdHash = "123.",
                     rol = "empleado"
                 },
 
@@ -41,7 +43,7 @@
                    idUsuario = "2",
                     username = "Benjamin-98",
                     nombre = "Benjamin",
-                    Password ="123",
+                   // passrowdHash = "1234.",
                     rol = "asesor"
                 },
 
@@ -50,7 +52,7 @@
                     idUsuario = "2",
                     username = "Daniel-98",
                     nombre = "Daniel",
-                    Password ="1234",
+                   // passrowdHash = "12345.",
                     rol = "asesor"
                 },
 
@@ -60,7 +62,7 @@
                      idUsuario = "3",
                      username = "Alejandro-98",
                      nombre = "Alejandro",
-                     Password ="1235",
+                    // passrowdHash = "234.",
                      rol = "administrador"
                 },
 
@@ -75,10 +77,3 @@
     }
 
 }
-
-
-
-        
-    
-
-

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Backend.Models;
+using System.Security.Claims;
 
 namespace Backend.Models
 {

@@ -1,8 +1,12 @@
+using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigureServices(builder.Services);
+
 
 // Add services to the container.
 
@@ -43,3 +47,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<IUsersService, UsuariosServices>();
+}

@@ -12,41 +12,43 @@ namespace Backend.Controllers
     [Route("autenticacion")]
     public class AutenticacionController : ControllerBase
     {
-
         public static Usuario usuario = new Usuario();
         private readonly IConfiguration _configuration;
 
-        public AutenticacionController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-
-
-
-        [HttpPost("Registro")]
+        [HttpPost("register")]
         public async Task<ActionResult<Usuario>> Registro(UserDTO request)
         {
-            CrearPasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            CrearPasswordHash(request.Passwd, out byte[] passwordHash, out byte[] passwordSalt);
 
-            usuario.nombre = request.Nombre;
-            usuario.username = request.Username;
+            //usuario.nombre = request.Nombre;
+
+            usuario.username = request.Usuario;
             usuario.passrowdHash = passwordHash;
             usuario.passrowdSalt = passwordSalt;
 
             return Ok(usuario);
         }
 
+        private void CrearPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+
 
         [HttpPost("Iniciar")]
         public async Task<ActionResult<string>> Login(UserDTO request)
         {
-            if (usuario.username != request.Username)
+            if (usuario.username != request.Usuario)
             {
                 return BadRequest("Usuario no existe.");
             }
 
-            if (!VerificaContraseniaHash(request.Password, usuario.passrowdHash, usuario.passrowdSalt))
+            if (!VerificaContraseniaHash(request.Passwd, usuario.passrowdHash, usuario.passrowdSalt))
             {
                 return BadRequest("Contraseña incorrecta.");
             }
@@ -60,14 +62,35 @@ namespace Backend.Controllers
         }
 
 
-        private void CrearPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private void SetRefreshToken(RefreshToken newRefreshToken)
         {
-            using (var hmac = new HMACSHA512())
+            var cookieOptions = new CookieOptions
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            usuario.RefreshToken = newRefreshToken.Token;
+            usuario.TokenCreated = newRefreshToken.Created;
+            usuario.TokenExpires = newRefreshToken.Expires;
         }
+
+    
+
+
+    private RefreshToken GenerarRefreshToken()
+        {
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.Now.AddDays(7),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
+
 
         private bool VerificaContraseniaHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
@@ -77,6 +100,7 @@ namespace Backend.Controllers
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
+
 
         private string CrearToken(Usuario usuario)
         {
@@ -101,43 +125,7 @@ namespace Backend.Controllers
             return jwt;
         }
 
-
-
-
-
-        private RefreshToken GenerarRefreshToken()
-        {
-            var refreshToken = new RefreshToken
-            {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddDays(7),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
-        }
-
-
-
-        private void SetRefreshToken(RefreshToken newRefreshToken)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = newRefreshToken.Expires
-            };
-            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
-
-            usuario.RefreshToken = newRefreshToken.Token;
-            usuario.TokenCreated = newRefreshToken.Created;
-            usuario.TokenExpires = newRefreshToken.Expires;
-        }
-
     }
 
 
-
-
-
 }
-
