@@ -12,42 +12,51 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        [Route("listar")]
+        [Route("listarTareas")]
         public dynamic listarTareas()
         {
-           
-            List<Tareas> tareas = new List<Tareas>
 
+            List<Tareas> tareas = new List<Tareas>()
             {
-              
-                new Tareas
-                {
-                    id = "1",
-                    nombre = "Camilo",
-                    nombre_tarea = "Matematica.",
-                    descripcion = "Usuario con tarea resuelta",
-                    estado = "Resuelta",
-                   // fecha_creacion =   DateTime.Today,
-                   // fecha_actualizacion = DateTime.Now,
-                   
-                },
 
-                new Tareas
-                {
-                    id = "2",
-                    nombre = "Benjamin",
-                    nombre_tarea = "Historia",
-                    descripcion = "Usuario con tarea no resuelta",
-                    estado = "No resuelta",
-                   // fecha_creacion =   DateTime.Today,
-                   // fecha_actualizacion = DateTime.Now,
+                    new()
+                    {
 
-                }
+                        nombre_tarea ="Matematica",
+                        estado ="Resuelta",
+                        
+                        usuario = new Usuario()
+                        {
+                            nombre ="Camilo",
+                            username ="camilo-98"
+                        }
 
+
+                    },
+
+                      new()
+                      {
+
+                        nombre_tarea ="Ciencias",
+                        estado ="No Resuelta",
+                        usuario = new Usuario()
+                      {
+                           nombre ="Benjamin",
+                           username ="benjamin-98"
+                        }
+
+
+                      }
                 };
+
+
+
+
 
             return tareas;
         }
+
+
 
 
 

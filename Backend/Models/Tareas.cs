@@ -1,6 +1,8 @@
-﻿namespace Backend.Models
+﻿using System;
+
+namespace Backend.Models
 {
-    public class Tareas : Usuario
+    public class Tareas
     {
         public string id { get; set; }
         public string nombre_tarea { get; set; }
@@ -8,8 +10,11 @@
 
         public string estado { get; set; }
 
-        public string fecha_creacion { get; set; }
-        public string fecha_actualizacion { get; set; }
+        public Usuario usuario { get; set; }
+
+
+        public DateTime fecha_creacion { get; set; }
+        public DateTime fecha_actualizacion { get; set; }
 
 
     }

@@ -9,12 +9,12 @@
 
         public string RefreshToken { get; set; } = string.Empty;
 
-        public byte[] passrowdHash { get; set; } 
+        public byte[] PassrowdHash { get; set; } 
 
         public UserDTO UserDTO { get; set; }
 
 
-        public byte[] passrowdSalt { get; set; } 
+        public byte[] PassrowdSalt { get; set; } 
 
         // public Tareas tarea { get; set; }
 

@@ -41,17 +41,6 @@ namespace Backend.Controllers
        
       
 
-
-
-
-
-
-
-
-
-
-
-
         [HttpPost]
         [Route("eliminar")]
         [Authorize]
@@ -96,29 +85,39 @@ namespace Backend.Controllers
         public dynamic listarUsuarios()
         {
 
-            List<Usuario> tareas = new List<Usuario>
-
+            List<Usuario> tareas = new List<Usuario>()
             {
 
-                new Usuario
-                {
-                   
-                    nombre = "Camilo",
-                     username = "Camilo0098",
-                   // passrowdHash = "123.",
-                    
+                    new()
+                    {
 
-                },
+                        nombre ="Camilo",
+                        UserDTO = new UserDTO()
+                        {
+                            Usuario ="camilo-98",
+                            Passwd ="123"
+                        }
 
-                new Usuario
-                {
-                    nombre = "Benjamin",
-                    username = "Benjamin-98",
-                    //passrowdHash = "1234.",
-                     
-                }
 
+                    },
+
+                      new()
+                      {
+
+                        nombre ="Benjamin",
+                        UserDTO = new UserDTO()
+                        {
+                            Usuario ="benjamin-98",
+                            Passwd ="123"
+                        }
+
+
+                      }
                 };
+
+
+
+
 
             return tareas;
         }
