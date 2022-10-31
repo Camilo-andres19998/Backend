@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
@@ -14,9 +16,12 @@ namespace Backend.Controllers
     public class TodaslasTareasController : ControllerBase
     {
 
-       private List<Tareas> task = new List<Tareas>()
-            {
-                 new Tareas()
+       
+
+        private List<Tareas> task = new List<Tareas>()
+        {
+         
+              new Tareas()
                 {
 
                     id = 1,
@@ -35,34 +40,64 @@ namespace Backend.Controllers
                 new Tareas()
                 {
 
-                    id = 1,
-                    nombre_tarea = "Matematica",
+                    id = 2,
+                    nombre_tarea = "Lenguaje",
                     estado = "Resuelta",
                     descripcion= "Completamente resuelta",
                     usuario = new Usuario
                     {
-                        nombre="Camilo",
-                        username="Camio098"
+                        nombre="Benjamin",
+                        username="Benjamin098"
+
+
+                    }
+                    },
+
+
+                    new Tareas()
+                    {
+                      id = 3,
+                      nombre_tarea = "Historia",
+                      estado = "Resuelta",
+                      descripcion= "Completamente resuelta",
+                      usuario = new Usuario
+                     {
+                        nombre="Daniel",
+                        username="Daniel098"
                     },
 
 
 
-                }
+                    }
 
 
 
                 };
 
- 
+
+
+
 
         [HttpGet]
         [Route("getTareas")]
         public async Task<ActionResult<Tareas>> GetTareas()
         {
-          
+
             return Ok(task);
         }
 
+
+
+        [HttpGet]
+        [Route("tareaAsociada")]
+        public async Task<ActionResult<Tareas>> GetTarea(int id)
+        {
+            var tarea = task.Find(x => x.id == id);
+            if (tarea == null)
+                return BadRequest("No se encuentra la tarea");
+
+            return Ok(tarea);
+        }
 
 
 
@@ -70,8 +105,8 @@ namespace Backend.Controllers
         [Route("EliminarTarea")]
         public async Task<ActionResult<Tareas>> EliminarTareas(int id)
         {
-            var tareas = task.Find(x => x.id == id );
-            if(tareas == null)
+            var tareas = task.Find(x => x.id == id);
+            if (tareas == null)
             {
                 return BadRequest("La tarea del usuario no se encuentra!");
             }
@@ -81,20 +116,8 @@ namespace Backend.Controllers
         }
 
 
-
-
-
-
-
-
-
     }
 
+
 }
-
-
-
-
-
-
 
