@@ -18,11 +18,11 @@
 
         public byte[] PassrowdSalt { get; set; } 
 
-        // public Tareas tarea { get; set; }
+         public Tareas tarea { get; set; }
 
         public string rol { get; set; }
 
-        public DateTime TokenCreated { get; set; }
+        public DateTime TokenCreated { get; set; } = DateTime.Now;
         public DateTime TokenExpires { get; set; }
 
 

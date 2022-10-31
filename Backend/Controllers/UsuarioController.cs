@@ -69,7 +69,7 @@ namespace Backend.Controllers
 
 
 
-[HttpGet]
+        [HttpGet]
         [Route("listarUsuarios")]
         public dynamic listarUsuarios()
         {
