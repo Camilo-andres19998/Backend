@@ -18,7 +18,7 @@ namespace Backend.Controllers
 
        
 
-        private List<Tareas> task = new List<Tareas>()
+        private static List<Tareas> task = new List<Tareas>()
         {
          
               new Tareas()
@@ -79,7 +79,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        [Route("getTareas")]
+        [Route("TodaslasTareas")]
         public async Task<ActionResult<Tareas>> GetTareas()
         {
 
@@ -89,7 +89,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        [Route("tareaAsociada")]
+        [Route("listadoTareaAsociada")]
         public async Task<ActionResult<Tareas>> GetTarea(int id)
         {
             var tarea = task.Find(x => x.id == id);
@@ -99,6 +99,14 @@ namespace Backend.Controllers
             return Ok(tarea);
         }
 
+
+        [HttpPost]
+        [Route("AgregarTareaAsociada")]
+        public async Task<ActionResult<Tareas>>AgregarTarea(Tareas request)
+        {
+            task.Add(request);
+            return Ok(task);
+        }
 
 
         [HttpDelete]
